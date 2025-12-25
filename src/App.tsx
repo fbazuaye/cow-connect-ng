@@ -13,6 +13,8 @@ import LivestockDetail from "./pages/LivestockDetail";
 import VendorProfile from "./pages/VendorProfile";
 import Cart from "./pages/Cart";
 import About from "./pages/About";
+import AdminDashboard from "./pages/AdminDashboard";
+import VendorDashboard from "./pages/VendorDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/vendor/register" element={<VendorRegister />} />
+              <Route path="/vendor/dashboard" element={<VendorDashboard />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/marketplace" element={<Marketplace />} />
               <Route path="/livestock/:id" element={<LivestockDetail />} />
               <Route path="/vendor/:id" element={<VendorProfile />} />
