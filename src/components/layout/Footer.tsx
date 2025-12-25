@@ -111,6 +111,9 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             © {currentYear} MooMarket. All rights reserved.
           </p>
+          <p className="text-sm text-muted-foreground">
+            Designed by <span className="font-medium text-foreground">Frank Bazuaye</span> : Powered By <span className="font-medium text-foreground">LiveGig Ltd</span>
+          </p>
           <div className="flex items-center gap-4">
             <img src="/placeholder.svg" alt="Secure Payment" className="h-8 opacity-60" />
             <span className="text-xs text-muted-foreground">Secured by SSL</span>
