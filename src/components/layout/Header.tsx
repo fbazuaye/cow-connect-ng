@@ -41,7 +41,7 @@ export function Header() {
             <span className="text-xl font-bold text-primary-foreground">🐄</span>
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Moo<span className="text-primary">Market</span>
+            Malu<span className="text-primary">Market</span>
           </span>
         </Link>
 

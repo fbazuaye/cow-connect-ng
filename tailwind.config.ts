@@ -57,7 +57,7 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // MooMarket custom colors
+        // MaluMarket custom colors
         forest: {
           DEFAULT: "hsl(var(--forest))",
           light: "hsl(var(--forest-light))",
