@@ -12,6 +12,7 @@ import Marketplace from "./pages/Marketplace";
 import LivestockDetail from "./pages/LivestockDetail";
 import VendorProfile from "./pages/VendorProfile";
 import Cart from "./pages/Cart";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/livestock/:id" element={<LivestockDetail />} />
               <Route path="/vendor/:id" element={<VendorProfile />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
