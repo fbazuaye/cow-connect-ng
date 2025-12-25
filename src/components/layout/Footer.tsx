@@ -15,7 +15,7 @@ export function Footer() {
                 <span className="text-xl">🐄</span>
               </div>
               <span className="font-display text-xl font-bold text-foreground">
-                Moo<span className="text-primary">Market</span>
+                Malu<span className="text-primary">Market</span>
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
@@ -98,8 +98,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 flex-shrink-0 text-primary" />
-                <a href="mailto:hello@moomarket.ng" className="text-sm text-muted-foreground hover:text-primary">
-                  hello@moomarket.ng
+                <a href="mailto:hello@malumarket.ng" className="text-sm text-muted-foreground hover:text-primary">
+                  hello@malumarket.ng
                 </a>
               </li>
             </ul>
@@ -109,7 +109,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} MooMarket. All rights reserved.
+            © {currentYear} MaluMarket. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
             Designed by <span className="font-medium text-foreground">Frank Bazuaye</span> : Powered By <span className="font-medium text-foreground">LiveGig Ltd</span>

@@ -20,7 +20,7 @@ export function CTASection() {
                 Ready to Buy?
               </h3>
               <p className="mb-6 text-white/80">
-                Join thousands of satisfied customers who trust MooMarket for their cattle needs. 
+                Join thousands of satisfied customers who trust MaluMarket for their cattle needs. 
                 Browse our marketplace and find the perfect livestock today.
               </p>
               <Button size="lg" variant="secondary" asChild className="group">

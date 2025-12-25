@@ -39,7 +39,7 @@ export function TrustIndicators() {
       <div className="container px-4 md:px-6">
         <div className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-            Why Choose <span className="text-primary">MooMarket?</span>
+            Why Choose <span className="text-primary">MaluMarket?</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             We've built Nigeria's most trusted livestock marketplace with your peace of mind as our priority.

@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       toast({
         title: "Account created!",
-        description: "Welcome to MooMarket. You can now browse and shop.",
+        description: "Welcome to MaluMarket. You can now browse and shop.",
       });
 
       return { error: null };

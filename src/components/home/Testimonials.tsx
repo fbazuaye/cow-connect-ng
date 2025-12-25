@@ -4,35 +4,35 @@ const testimonials = [
   {
     name: "Alhaji Musa Ibrahim",
     role: "Restaurant Owner, Lagos",
-    content: "MooMarket transformed how I source cattle for my suya business. The quality is consistent, and delivery is always on time. I've been using them for 2 years now.",
+    content: "MaluMarket transformed how I source cattle for my suya business. The quality is consistent, and delivery is always on time. I've been using them for 2 years now.",
     rating: 5,
     image: null,
   },
   {
     name: "Mrs. Chioma Okonkwo",
     role: "Event Planner, Abuja",
-    content: "For every traditional wedding I plan, I trust MooMarket for the cattle. The health certificates give my clients peace of mind. Highly recommended!",
+    content: "For every traditional wedding I plan, I trust MaluMarket for the cattle. The health certificates give my clients peace of mind. Highly recommended!",
     rating: 5,
     image: null,
   },
   {
     name: "Mallam Usman Abdullahi",
     role: "Farmer, Kano",
-    content: "As a vendor on MooMarket, I've expanded my customer base beyond my local market. The platform is easy to use and payments are always prompt.",
+    content: "As a vendor on MaluMarket, I've expanded my customer base beyond my local market. The platform is easy to use and payments are always prompt.",
     rating: 5,
     image: null,
   },
   {
     name: "Chief Emeka Nwosu",
     role: "Traditional Ruler, Anambra",
-    content: "The quality of cattle I receive from MooMarket for our community celebrations is unmatched. Their customer service is exceptional.",
+    content: "The quality of cattle I receive from MaluMarket for our community celebrations is unmatched. Their customer service is exceptional.",
     rating: 5,
     image: null,
   },
   {
     name: "Hajiya Fatima Bello",
     role: "Wholesaler, Kaduna",
-    content: "I purchase large quantities regularly and MooMarket handles everything professionally. The money-back guarantee gave me confidence to try them.",
+    content: "I purchase large quantities regularly and MaluMarket handles everything professionally. The money-back guarantee gave me confidence to try them.",
     rating: 5,
     image: null,
   },
@@ -57,7 +57,7 @@ export function Testimonials() {
             Trusted by Thousands
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Don't just take our word for it. See what our customers across Nigeria have to say about MooMarket.
+            Don't just take our word for it. See what our customers across Nigeria have to say about MaluMarket.
           </p>
         </div>
 

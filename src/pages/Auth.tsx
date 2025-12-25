@@ -80,7 +80,7 @@ export default function Auth() {
               {isSignUp ? "Create Account" : "Welcome Back"}
             </h1>
             <p className="mt-2 text-muted-foreground">
-              {isSignUp ? "Join MooMarket today" : "Sign in to your account"}
+              {isSignUp ? "Join MaluMarket today" : "Sign in to your account"}
             </p>
           </div>
 

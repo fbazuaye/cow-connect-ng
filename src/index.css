@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* MooMarket Design System - Earth-toned professional colors */
+/* MaluMarket Design System - Earth-toned professional colors */
 
 @layer base {
   :root {
@@ -45,7 +45,7 @@
 
     --radius: 0.75rem;
 
-    /* Custom MooMarket colors */
+    /* Custom MaluMarket colors */
     --forest: 100 50% 25%;
     --forest-light: 100 40% 35%;
     --forest-dark: 100 55% 18%;
