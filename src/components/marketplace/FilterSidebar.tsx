@@ -186,12 +186,15 @@ export function FilterSidebar({ filters, onFiltersChange, onReset, className }: 
         <AccordionItem value="location">
           <AccordionTrigger className="text-sm font-medium">Location</AccordionTrigger>
           <AccordionContent>
-            <Select value={filters.state} onValueChange={(state) => updateFilters({ state })}>
+            <Select 
+              value={filters.state || "all"} 
+              onValueChange={(value) => updateFilters({ state: value === "all" ? "" : value })}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select state" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All States</SelectItem>
+                <SelectItem value="all">All States</SelectItem>
                 {STATES.map((state) => (
                   <SelectItem key={state} value={state}>
                     {state}
