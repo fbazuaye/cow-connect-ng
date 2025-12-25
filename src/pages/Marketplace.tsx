@@ -36,14 +36,25 @@ export default function Marketplace() {
       const { data, error } = await supabase
         .from('livestock')
         .select(`
-          *,
-          vendor:vendors (*)
+          id,
+          title,
+          breed,
+          price,
+          weight_kg,
+          age_months,
+          is_certified,
+          images,
+          created_at,
+          vendor:vendors (id, farm_name, state, rating, total_reviews, is_verified)
         `)
-        .eq('is_available', true);
+        .eq('is_available', true)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       return data as LivestockWithVendor[];
     },
+    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    gcTime: 1000 * 60 * 10, // Keep in garbage collection for 10 minutes
   });
 
   const filteredLivestock = useMemo(() => {
