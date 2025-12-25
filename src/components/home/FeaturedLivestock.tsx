@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Weight, Calendar, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import cattleWhiteFulani from "@/assets/cattle-white-fulani.jpg";
+import cattleSokotoGudali from "@/assets/cattle-sokoto-gudali.jpg";
+import cattleRedBororo from "@/assets/cattle-red-bororo.jpg";
+import cattleNdama from "@/assets/cattle-ndama.jpg";
 
 // Sample data - will be replaced with real data from database
 const featuredCattle = [
@@ -15,7 +19,7 @@ const featuredCattle = [
     location: "Kano",
     isVerified: true,
     isCertified: true,
-    image: null,
+    image: cattleWhiteFulani,
   },
   {
     id: "2",
@@ -27,7 +31,7 @@ const featuredCattle = [
     location: "Sokoto",
     isVerified: true,
     isCertified: true,
-    image: null,
+    image: cattleSokotoGudali,
   },
   {
     id: "3",
@@ -39,7 +43,7 @@ const featuredCattle = [
     location: "Adamawa",
     isVerified: true,
     isCertified: false,
-    image: null,
+    image: cattleRedBororo,
   },
   {
     id: "4",
@@ -51,7 +55,7 @@ const featuredCattle = [
     location: "Oyo",
     isVerified: true,
     isCertified: true,
-    image: null,
+    image: cattleNdama,
   },
 ];
 
@@ -92,9 +96,11 @@ export function FeaturedLivestock() {
             >
               {/* Image */}
               <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                <div className="flex h-full items-center justify-center text-6xl">
-                  🐄
-                </div>
+                <img 
+                  src={cattle.image} 
+                  alt={cattle.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
                 {/* Badges */}
                 <div className="absolute left-3 top-3 flex flex-col gap-2">
                   {cattle.isVerified && (

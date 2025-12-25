@@ -32,6 +32,18 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import type { Tables } from '@/integrations/supabase/types';
+import cattleWhiteFulani from "@/assets/cattle-white-fulani.jpg";
+import cattleSokotoGudali from "@/assets/cattle-sokoto-gudali.jpg";
+import cattleRedBororo from "@/assets/cattle-red-bororo.jpg";
+import cattleNdama from "@/assets/cattle-ndama.jpg";
+
+// Map breeds to images
+const breedImages: Record<string, string> = {
+  "White Fulani": cattleWhiteFulani,
+  "Sokoto Gudali": cattleSokotoGudali,
+  "Red Bororo": cattleRedBororo,
+  "Ndama": cattleNdama,
+};
 
 const NIGERIAN_STATES = [
   'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue',
@@ -133,7 +145,8 @@ export default function LivestockDetail() {
     );
   }
 
-  const images = livestock.images?.length ? livestock.images : ['/placeholder.svg'];
+  const defaultImage = breedImages[livestock.breed] || cattleWhiteFulani;
+  const images = livestock.images?.length ? livestock.images : [defaultImage];
   const deliveryFee = deliveryZone?.base_delivery_fee || null;
   const totalPrice = livestock.price * quantity + (deliveryFee || 0);
 

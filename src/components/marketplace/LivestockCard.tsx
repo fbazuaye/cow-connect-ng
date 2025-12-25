@@ -5,6 +5,18 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, MapPin, Weight, Calendar, Shield, Star } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import type { Tables } from '@/integrations/supabase/types';
+import cattleWhiteFulani from "@/assets/cattle-white-fulani.jpg";
+import cattleSokotoGudali from "@/assets/cattle-sokoto-gudali.jpg";
+import cattleRedBororo from "@/assets/cattle-red-bororo.jpg";
+import cattleNdama from "@/assets/cattle-ndama.jpg";
+
+// Map breeds to images
+const breedImages: Record<string, string> = {
+  "White Fulani": cattleWhiteFulani,
+  "Sokoto Gudali": cattleSokotoGudali,
+  "Red Bororo": cattleRedBororo,
+  "Ndama": cattleNdama,
+};
 
 interface LivestockCardProps {
   livestock: Tables<'livestock'> & {
@@ -29,7 +41,7 @@ export function LivestockCard({ livestock }: LivestockCardProps) {
     addToCart(livestock.id);
   };
 
-  const primaryImage = livestock.images?.[0] || '/placeholder.svg';
+  const primaryImage = livestock.images?.[0] || breedImages[livestock.breed] || cattleWhiteFulani;
 
   return (
     <Link to={`/livestock/${livestock.id}`}>

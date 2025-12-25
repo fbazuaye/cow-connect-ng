@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Shield, Truck, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import cattleHero from "@/assets/cattle-hero.jpg";
 
 export function Hero() {
   return (
@@ -62,9 +63,13 @@ export function Hero() {
           {/* Hero Image/Stats */}
           <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
             <div className="relative rounded-2xl bg-white/10 p-8 backdrop-blur-sm">
-              {/* Cow Illustration Placeholder */}
-              <div className="flex aspect-square items-center justify-center rounded-xl bg-white/5 text-9xl">
-                🐄
+              {/* Professional Cattle Image */}
+              <div className="aspect-square overflow-hidden rounded-xl">
+                <img 
+                  src={cattleHero} 
+                  alt="Premium Nigerian cattle"
+                  className="h-full w-full object-cover"
+                />
               </div>
               
               {/* Floating Stats Cards */}

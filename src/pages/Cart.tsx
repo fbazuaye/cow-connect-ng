@@ -27,6 +27,18 @@ import {
   Loader2,
   ShoppingBag,
 } from 'lucide-react';
+import cattleWhiteFulani from "@/assets/cattle-white-fulani.jpg";
+import cattleSokotoGudali from "@/assets/cattle-sokoto-gudali.jpg";
+import cattleRedBororo from "@/assets/cattle-red-bororo.jpg";
+import cattleNdama from "@/assets/cattle-ndama.jpg";
+
+// Map breeds to images
+const breedImages: Record<string, string> = {
+  "White Fulani": cattleWhiteFulani,
+  "Sokoto Gudali": cattleSokotoGudali,
+  "Red Bororo": cattleRedBororo,
+  "Ndama": cattleNdama,
+};
 
 const NIGERIAN_STATES = [
   'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue',
@@ -151,7 +163,7 @@ export default function Cart() {
                           className="shrink-0 h-24 w-24 rounded-lg overflow-hidden bg-muted"
                         >
                           <img
-                            src={item.livestock?.images?.[0] || '/placeholder.svg'}
+                            src={item.livestock?.images?.[0] || breedImages[item.livestock?.breed || ''] || cattleWhiteFulani}
                             alt={item.livestock?.title || 'Livestock'}
                             className="h-full w-full object-cover"
                           />
