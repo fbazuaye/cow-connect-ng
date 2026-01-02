@@ -15,6 +15,7 @@ import Cart from "./pages/Cart";
 import About from "./pages/About";
 import AdminDashboard from "./pages/AdminDashboard";
 import VendorDashboard from "./pages/VendorDashboard";
+import BuyerDashboard from "./pages/BuyerDashboard";
 import Orders from "./pages/Orders";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<BuyerDashboard />} />
               <Route path="/vendor/register" element={<VendorRegister />} />
               <Route path="/vendor/dashboard" element={<VendorDashboard />} />
               <Route path="/admin" element={<AdminDashboard />} />

@@ -19,12 +19,23 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Eye
+  Eye,
+  UserCheck
 } from "lucide-react";
 import type { Database } from "@/integrations/supabase/types";
 
 type Vendor = Database["public"]["Tables"]["vendors"]["Row"];
 type Order = Database["public"]["Tables"]["orders"]["Row"];
+
+interface BuyerProfile {
+  user_id: string;
+  full_name: string | null;
+  email: string | null;
+  phone: string | null;
+  created_at: string;
+  order_count: number;
+  total_spent: number;
+}
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -34,11 +45,13 @@ export default function AdminDashboard() {
   
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [buyers, setBuyers] = useState<BuyerProfile[]>([]);
   const [stats, setStats] = useState({
     totalVendors: 0,
     pendingVendors: 0,
     totalOrders: 0,
     totalRevenue: 0,
+    totalBuyers: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -65,7 +78,7 @@ export default function AdminDashboard() {
 
   async function fetchData() {
     try {
-      // Fetch all vendors (admin can see all, we'll use service role or adjust RLS)
+      // Fetch all vendors
       const { data: vendorData } = await supabase
         .from("vendors")
         .select("*")
@@ -81,6 +94,35 @@ export default function AdminDashboard() {
 
       setOrders(orderData || []);
 
+      // Fetch buyer profiles with order stats
+      const { data: profilesData } = await supabase
+        .from("profiles")
+        .select("user_id, full_name, email, phone, created_at")
+        .order("created_at", { ascending: false });
+
+      // Get order counts and totals for each buyer
+      const buyerProfiles: BuyerProfile[] = [];
+      if (profilesData) {
+        for (const profile of profilesData) {
+          const { data: userOrders } = await supabase
+            .from("orders")
+            .select("total, payment_status")
+            .eq("user_id", profile.user_id);
+          
+          const orderCount = userOrders?.length || 0;
+          const totalSpent = userOrders
+            ?.filter(o => o.payment_status === "paid")
+            .reduce((sum, o) => sum + Number(o.total), 0) || 0;
+
+          buyerProfiles.push({
+            ...profile,
+            order_count: orderCount,
+            total_spent: totalSpent,
+          });
+        }
+      }
+      setBuyers(buyerProfiles);
+
       // Calculate stats
       const pendingCount = vendorData?.filter(v => v.status === "pending").length || 0;
       const totalRev = orderData?.reduce((sum, o) => sum + Number(o.total), 0) || 0;
@@ -90,6 +132,7 @@ export default function AdminDashboard() {
         pendingVendors: pendingCount,
         totalOrders: orderData?.length || 0,
         totalRevenue: totalRev,
+        totalBuyers: buyerProfiles.length,
       });
     } catch (error) {
       console.error("Error fetching admin data:", error);
@@ -151,6 +194,18 @@ export default function AdminDashboard() {
     return <Badge variant={variants[status] || "outline"}>{status}</Badge>;
   };
 
+  const getOrderStatusBadge = (status: string) => {
+    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+      pending: "secondary",
+      confirmed: "outline",
+      processing: "outline",
+      dispatched: "default",
+      delivered: "default",
+      cancelled: "destructive",
+    };
+    return <Badge variant={variants[status] || "outline"}>{status}</Badge>;
+  };
+
   if (authLoading || roleLoading || loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -177,11 +232,11 @@ export default function AdminDashboard() {
       <main className="container py-8 px-4 md:px-6">
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold text-foreground">Admin Dashboard</h1>
-          <p className="text-muted-foreground mt-1">Manage vendors, orders, and platform operations</p>
+          <p className="text-muted-foreground mt-1">Manage vendors, buyers, orders, and platform operations</p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Total Vendors</CardTitle>
@@ -190,6 +245,17 @@ export default function AdminDashboard() {
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalVendors}</div>
               <p className="text-xs text-muted-foreground">{stats.pendingVendors} pending approval</p>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Total Buyers</CardTitle>
+              <UserCheck className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.totalBuyers}</div>
+              <p className="text-xs text-muted-foreground">Registered users</p>
             </CardContent>
           </Card>
           
@@ -231,6 +297,7 @@ export default function AdminDashboard() {
         <Tabs defaultValue="vendors" className="space-y-4">
           <TabsList>
             <TabsTrigger value="vendors">Vendors</TabsTrigger>
+            <TabsTrigger value="buyers">Buyers</TabsTrigger>
             <TabsTrigger value="orders">Orders</TabsTrigger>
           </TabsList>
 
@@ -299,6 +366,46 @@ export default function AdminDashboard() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="buyers" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Registered Buyers</CardTitle>
+                <CardDescription>View and manage platform buyers</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {buyers.length === 0 ? (
+                  <p className="text-muted-foreground text-center py-8">No registered buyers yet</p>
+                ) : (
+                  <div className="space-y-4">
+                    {buyers.map((buyer) => (
+                      <div key={buyer.user_id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-semibold">{buyer.full_name || "Name not set"}</h3>
+                            {buyer.order_count > 0 && (
+                              <Badge variant="default">{buyer.order_count} orders</Badge>
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {buyer.email || "No email"} | {buyer.phone || "No phone"}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Joined: {new Date(buyer.created_at).toLocaleDateString()} | 
+                            Total Spent: {formatCurrency(buyer.total_spent)}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-primary">{formatCurrency(buyer.total_spent)}</p>
+                          <p className="text-sm text-muted-foreground">{buyer.order_count} orders</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="orders" className="space-y-4">
             <Card>
               <CardHeader>
@@ -315,9 +422,7 @@ export default function AdminDashboard() {
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
                             <h3 className="font-semibold">Order #{order.order_number}</h3>
-                            <Badge variant={order.status === "delivered" ? "default" : "secondary"}>
-                              {order.status}
-                            </Badge>
+                            {getOrderStatusBadge(order.status)}
                             <Badge variant={order.payment_status === "paid" ? "default" : "outline"}>
                               {order.payment_status}
                             </Badge>

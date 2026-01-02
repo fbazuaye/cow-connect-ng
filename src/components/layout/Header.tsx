@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Search, ShoppingCart, User, LayoutDashboard, Shield } from "lucide-react";
+import { Menu, X, Search, ShoppingCart, User, LayoutDashboard, Shield, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
@@ -17,7 +17,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { user, signOut } = useAuth();
-  const { isAdmin, isVendor } = useUserRole();
+  const { isAdmin, isVendor, isBuyer } = useUserRole();
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -114,10 +114,13 @@ export function Header() {
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuItem asChild>
-                  <Link to="/orders">My Orders</Link>
+                  <Link to="/dashboard">
+                    <Home className="h-4 w-4 mr-2" />
+                    My Dashboard
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/orders">My Orders</Link>
                 </DropdownMenuItem>
                 {!isVendor && (
                   <>
@@ -187,6 +190,35 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
+              {user && (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    My Dashboard
+                  </Link>
+                  {isVendor && (
+                    <Link
+                      to="/vendor/dashboard"
+                      className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Vendor Dashboard
+                    </Link>
+                  )}
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+                </>
+              )}
             </nav>
 
             {/* Mobile Auth Buttons */}
