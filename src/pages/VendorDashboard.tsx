@@ -249,6 +249,31 @@ export default function VendorDashboard() {
     }
   }
 
+  async function handleUpdateOrderStatus(orderId: string, newStatus: "pending" | "confirmed" | "processing" | "dispatched" | "delivered" | "cancelled") {
+    try {
+      const { error } = await supabase
+        .from("orders")
+        .update({ status: newStatus })
+        .eq("id", orderId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Order Updated",
+        description: `Order status changed to ${newStatus}.`,
+      });
+
+      fetchData();
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      toast({
+        title: "Error",
+        description: "Failed to update order status.",
+        variant: "destructive",
+      });
+    }
+  }
+
   function resetForm() {
     setFormData({
       title: "",
@@ -533,7 +558,7 @@ export default function VendorDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Your Orders</CardTitle>
-                <CardDescription>Track customer orders for your livestock</CardDescription>
+                <CardDescription>Track and manage customer orders for your livestock</CardDescription>
               </CardHeader>
               <CardContent>
                 {orders.length === 0 ? (
@@ -556,6 +581,24 @@ export default function VendorDashboard() {
                             Subtotal: {formatCurrency(Number(order.subtotal))} | 
                             Created: {new Date(order.created_at).toLocaleDateString()}
                           </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {order.status !== "delivered" && order.status !== "cancelled" && (
+                            <select
+                              className="text-sm border rounded-md px-3 py-1.5 bg-background"
+                              value={order.status}
+                              onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value as any)}
+                            >
+                              <option value="pending">Pending</option>
+                              <option value="confirmed">Confirmed</option>
+                              <option value="processing">Processing</option>
+                              <option value="dispatched">Dispatched</option>
+                              <option value="delivered">Delivered</option>
+                            </select>
+                          )}
+                          {order.status === "delivered" && (
+                            <Badge variant="default" className="bg-green-600">Completed</Badge>
+                          )}
                         </div>
                       </div>
                     ))}
