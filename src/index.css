@@ -76,6 +76,14 @@
     --sidebar-accent-foreground: 25 30% 15%;
     --sidebar-border: 40 20% 88%;
     --sidebar-ring: 100 50% 25%;
+
+    /* Rider App Colors */
+    --rider-online: 142 76% 36%;
+    --rider-offline: 0 0% 50%;
+    --rider-busy: 43 74% 49%;
+    --rider-success: 142 76% 36%;
+    --rider-warning: 43 74% 49%;
+    --rider-danger: 0 84% 60%;
   }
 
   .dark {
