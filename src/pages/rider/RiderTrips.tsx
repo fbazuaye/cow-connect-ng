@@ -25,7 +25,7 @@ interface Trip {
 
 const RiderTrips = () => {
   const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { rider, isLoading: riderLoading } = useRider();
   const [trips, setTrips] = useState<Trip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
