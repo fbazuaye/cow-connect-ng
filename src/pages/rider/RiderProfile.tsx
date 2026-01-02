@@ -22,7 +22,7 @@ import {
 
 const RiderProfile = () => {
   const navigate = useNavigate();
-  const { user, signOut, isLoading: authLoading } = useAuth();
+  const { user, signOut, loading: authLoading } = useAuth();
   const { rider, vehicles, isLoading: riderLoading } = useRider();
 
   const handleSignOut = async () => {

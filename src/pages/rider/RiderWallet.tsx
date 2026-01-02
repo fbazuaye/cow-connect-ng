@@ -24,7 +24,7 @@ interface Transaction {
 
 const RiderWallet = () => {
   const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { rider, wallet, isLoading: riderLoading } = useRider();
   const { toast } = useToast();
   const [transactions, setTransactions] = useState<Transaction[]>([]);

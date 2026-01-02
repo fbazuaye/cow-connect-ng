@@ -29,6 +29,7 @@ import {
   Clock,
   DollarSign,
 } from "lucide-react";
+import type { Json } from "@/integrations/supabase/types";
 
 interface Trip {
   id: string;
@@ -36,9 +37,9 @@ interface Trip {
   delivery_type: string;
   status: string;
   pickup_address: string;
-  pickup_coordinates: { lat: number; lng: number } | null;
+  pickup_coordinates: Json | null;
   dropoff_address: string;
-  dropoff_coordinates: { lat: number; lng: number } | null;
+  dropoff_coordinates: Json | null;
   pickup_notes: string | null;
   delivery_notes: string | null;
   estimated_distance_km: number | null;
@@ -188,10 +189,11 @@ const TripDetail = () => {
     }
   };
 
-  const openNavigation = (address: string, coords?: { lat: number; lng: number } | null) => {
-    if (coords) {
+  const openNavigation = (address: string, coords?: Json | null) => {
+    const parsedCoords = coords as { lat: number; lng: number } | null;
+    if (parsedCoords?.lat && parsedCoords?.lng) {
       window.open(
-        `https://www.google.com/maps/dir/?api=1&destination=${coords.lat},${coords.lng}`,
+        `https://www.google.com/maps/dir/?api=1&destination=${parsedCoords.lat},${parsedCoords.lng}`,
         "_blank"
       );
     } else {
