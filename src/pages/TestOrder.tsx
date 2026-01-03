@@ -110,10 +110,10 @@ const TestOrder = () => {
       // Get or create a test user session
       const { data: { user }, error: authError } = await supabase.auth.getUser();
       console.log("Auth check:", { user, authError });
-      
+
       if (!user) {
-        toast.error("Please sign in to place a test order");
-        navigate("/auth");
+        toast.error("Please sign in first — you'll be returned to Test Order after login.");
+        navigate("/auth?redirect=/test-order");
         return;
       }
 
