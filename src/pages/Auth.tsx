@@ -21,6 +21,7 @@ const signInSchema = z.object({
 
 export default function Auth() {
   const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
   const [isSignUp, setIsSignUp] = useState(searchParams.get("mode") === "signup");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -29,8 +30,8 @@ export default function Auth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate("/");
-  }, [user, navigate]);
+    if (user) navigate(redirectTo, { replace: true });
+  }, [user, navigate, redirectTo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +51,7 @@ export default function Auth() {
           return;
         }
         const { error } = await signUp(formData.email, formData.password, formData.fullName);
-        if (!error) navigate("/");
+        if (!error) navigate(redirectTo, { replace: true });
       } else {
         const result = signInSchema.safeParse(formData);
         if (!result.success) {
@@ -63,7 +64,7 @@ export default function Auth() {
           return;
         }
         const { error } = await signIn(formData.email, formData.password);
-        if (!error) navigate("/");
+        if (!error) navigate(redirectTo, { replace: true });
       }
     } finally {
       setLoading(false);
