@@ -85,8 +85,22 @@ const TestOrder = () => {
   };
 
   const handlePlaceOrder = async () => {
-    if (!selectedLivestock || !selectedState || !address || !phone) {
-      toast.error("Please fill in all fields");
+    console.log("Place order clicked", { selectedLivestock, selectedState, address, phone });
+    
+    if (!selectedLivestock) {
+      toast.error("Please select a livestock item");
+      return;
+    }
+    if (!selectedState) {
+      toast.error("Please select a delivery state");
+      return;
+    }
+    if (!address) {
+      toast.error("Please enter a delivery address");
+      return;
+    }
+    if (!phone || phone.trim() === "+234 ") {
+      toast.error("Please enter a phone number");
       return;
     }
 
@@ -94,7 +108,8 @@ const TestOrder = () => {
 
     try {
       // Get or create a test user session
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      console.log("Auth check:", { user, authError });
       
       if (!user) {
         toast.error("Please sign in to place a test order");
