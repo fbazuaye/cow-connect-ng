@@ -25,6 +25,7 @@ import RiderTrips from "./pages/rider/RiderTrips";
 import RiderWallet from "./pages/rider/RiderWallet";
 import RiderProfile from "./pages/rider/RiderProfile";
 import TripDetail from "./pages/rider/TripDetail";
+import TestOrder from "./pages/TestOrder";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/orders" element={<Orders />} />
+                <Route path="/test-order" element={<TestOrder />} />
                 {/* Rider Routes */}
                 <Route path="/rider" element={<RiderDashboard />} />
                 <Route path="/rider/onboarding" element={<RiderOnboarding />} />
