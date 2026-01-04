@@ -39,9 +39,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-            <span className="text-xl font-bold text-primary-foreground">🐄</span>
-          </div>
+          <img src="/favicon.png" alt="MaluMarket" className="h-10 w-10" />
           <span className="font-display text-xl font-bold text-foreground">
             Malu<span className="text-primary">Market</span>
           </span>
