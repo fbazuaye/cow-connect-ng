@@ -92,14 +92,14 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 flex-shrink-0 text-primary" />
-                <a href="tel:+2348012345678" className="text-sm text-muted-foreground hover:text-primary">
-                  +234 801 234 5678
+                <a href="tel:+2348103252986" className="text-sm text-muted-foreground hover:text-primary">
+                  +234 810 325 2986
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 flex-shrink-0 text-primary" />
-                <a href="mailto:hello@malumarket.ng" className="text-sm text-muted-foreground hover:text-primary">
-                  hello@malumarket.ng
+                <a href="mailto:fbazuaye@livegig.com.ng" className="text-sm text-muted-foreground hover:text-primary">
+                  fbazuaye@livegig.com.ng
                 </a>
               </li>
             </ul>
